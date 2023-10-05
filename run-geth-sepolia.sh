@@ -3,7 +3,7 @@ geth \
 	--sepolia \
 	--http.api eth,web3,net,txpool,debug,engine \
 	--ws --ws.api eth,web3,net,txpool \
-	--authrpc.jwtsecret=jwt.txt \
+	--authrpc.jwtsecret=$(pwd)/jwt.txt \
 	--port 30304 \
 	--authrpc.port 19551 \
 	--http.port 19545 \

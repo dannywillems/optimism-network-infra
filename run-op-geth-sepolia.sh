@@ -1,18 +1,28 @@
-SEQUENCER_URL=https://sepolia-sequencer.optimism.io/
+SEQUENCER_URL="https://sepolia-sequencer.optimism.io/"
 
 cd ../../op-geth
 
 ./build/bin/geth \
 	--datadir=$(pwd)/data-op-geth-sepolia \
-	--http \
-	--nodiscover \
+        --http \
 	--http.port=8545 \
-	--http.addr=localhost \
-	--http.api eth,web3,net,txpool,debug,engine \
-	--ws --ws.api eth,web3,net,txpool \
-	--authrpc.addr=localhost \
-	--authrpc.jwtsecret=./jwt.txt \
-	--verbosity=5 \
+        --http.corsdomain="*" \
+        --http.vhosts="*" \
+        --http.addr=localhost \
+        --http.api=web3,debug,eth,txpool,net,engine \
+        --ws \
+        --ws.addr=localhost \
+        --ws.port=8546 \
+        --ws.origins="*" \
+        --ws.api=debug,eth,txpool,net,engine \
+	--networkid=11155420 \
+        --syncmode=full \
+        --gcmode=archive \
+        --nodiscover \
+        --maxpeers=0 \
+        --authrpc.vhosts="*" \
+        --authrpc.addr=localhost \
+        --authrpc.port=8551 \
+        --authrpc.jwtsecret=./jwt.txt \
 	--rollup.sequencerhttp=$SEQUENCER_URL \
-	--syncmode=full \
-	--maxpeers=0
+        --rollup.disabletxpoolgossip=true
