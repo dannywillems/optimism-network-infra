@@ -1,9 +1,12 @@
 SEQUENCER_URL="https://sepolia-sequencer.optimism.io/"
 
+DATA_DIRECTORY=$(pwd)/data-op-geth-sepolia
+JWT_TOKEN=$(pwd)/jwt.txt
+
 cd ../../op-geth
 
 ./build/bin/geth \
-	--datadir=$(pwd)/data-op-geth-sepolia \
+	--datadir=${DATA_DIRECTORY} \
         --http \
 	--http.port=8545 \
         --http.corsdomain="*" \
@@ -15,7 +18,6 @@ cd ../../op-geth
         --ws.port=8546 \
         --ws.origins="*" \
         --ws.api=debug,eth,txpool,net,engine \
-	--networkid=11155420 \
         --syncmode=full \
         --gcmode=archive \
         --nodiscover \
@@ -23,6 +25,6 @@ cd ../../op-geth
         --authrpc.vhosts="*" \
         --authrpc.addr=localhost \
         --authrpc.port=8551 \
-        --authrpc.jwtsecret=./jwt.txt \
+        --authrpc.jwtsecret=${JWT_TOKEN} \
 	--rollup.sequencerhttp=$SEQUENCER_URL \
         --rollup.disabletxpoolgossip=true
