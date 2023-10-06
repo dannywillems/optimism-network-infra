@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-make op-program
+make -C $HOME/codes/optimism/op-program op-program
 
 L1RPC=http://localhost:19545
 L2RPC=http://localhost:8545
@@ -38,7 +38,7 @@ L2_HEAD_NUMBER=$(echo ${OUTPUT} | cut -d' ' -f 3)
 L2_HEAD=$(cast block "${L2_HEAD_NUMBER}" --rpc-url "${L2RPC}" -f hash)
 
 set -x
-./op-program/bin/op-program \
+$HOME/codes/optimism/op-program/bin/op-program \
 	--log.level DEBUG \
 	--l1 $L1RPC \
 	--l2 $L2RPC \
